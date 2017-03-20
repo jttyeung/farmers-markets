@@ -4,6 +4,9 @@ from geoalchemy2 import Geometry
 db = SQLAlchemy()
 
 
+
+# PostgreSQL Tables
+
 class FarmersMarket(db.Model):
     """ Farmer's markets information. """
 
@@ -70,6 +73,10 @@ class FarmersMarket(db.Model):
     wild_harvested = db.Column(db.String(10), db.ForeignKey('hasitems.has_item_id'), nullable=False)
     date_updated = db.Column(db.TIMESTAMP(timezone=True), nullable=False)
 
+    def __repr__(self):
+        """ Shows information about the farmer's market. """
+        return '<FarmersMarket id=%s name=%s>' % (self.fm_id, self.name)
+
 
 class HasItem(db.Model):
     """ Yes, No, or No Data """
@@ -77,6 +84,10 @@ class HasItem(db.Model):
     __tablename__ = 'hasitems'
 
     has_item_id = db.Column(db.String(10), primary_key=True, nullable=False)
+
+    def __repr__(self):
+        """ Shows information about the item. """
+        return '<HasItem id=%s>' % (self.has_item_id)
 
 
 class State(db.Model):
@@ -91,4 +102,30 @@ class State(db.Model):
     def __repr__(self):
         """ Shows information about the user. """
 
-        return '<User id=%s firstname=%s lastname=%s email=%s>' % (self.user_id, self.firstname, self.lastname, self.email)
+        return '<State id=%s name=%s>' % (self.state_id, self.name)
+
+
+
+# PostgreSQL connection and db setup
+
+def connect_to_db(app, db_uri='postgresql:///farmers-markets'):
+    """Connect the database to Flask app."""
+
+    # Configure to use PostgreSQL database
+    app.config['SQLALCHEMY_DATABASE_URI'] = db_uri
+    app.config['SQLALCHEMY_ECHO'] = False
+    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+    db.app = app
+    db.init_app(app)
+
+
+if __name__ == "__main__":
+
+    # Import app from server if opening from this file
+    from server import app
+
+    connect_to_db(app)
+    print "Connected to DB."
+
+    # In case tables haven't been created, create them
+    db.create_all()
