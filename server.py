@@ -24,24 +24,25 @@ def homepage():
 def error_if_nonexistent(fm_id):
     """ Returns an error message if farmer's market id is not found. """
     fm_ids = get_market_ids()
+
     if fm_id not in fm_ids:
-        abort(404, message='Farmer\'s Market {} not found'.format(fm_id))
+        abort(404, message='Farmer\'s market {} not found'.format(fm_id))
 
 
 class MarketListAPI(Resource):
     """ Resource for full list of farmer's markets. """
-    def get(self):
 
+    def get(self):
         return get_markets()
-        # return ''
 
 
 class MarketAPI(Resource):
     """ Resource for individual farmer's markets. """
+
     def get(self, fm_id):
         error_if_nonexistent(fm_id)
-        # return markets[fm_id]
-        pass
+        return get_market_by_id(fm_id)
+
 
     def delete(self, fm_id):
         error_if_nonexistent(fm_id)

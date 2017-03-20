@@ -9,7 +9,7 @@ def get_market_ids():
     market_ids = db.session.query(FarmersMarket.fm_id).all()
     for ids in market_ids:
         fm_ids.add(ids[0])
-
+    print fm_ids
     return fm_ids
 
 
@@ -24,6 +24,7 @@ def get_markets():
         FROM farmersmarkets
         """
 
+    # Executes query
     db_cursor = db.session.execute(QUERY)
     # Fetchall outputs each dictionary into a tuple
     rows = db_cursor.fetchall()
@@ -35,5 +36,9 @@ def get_markets():
     return markets
 
 
+def get_market_by_id(fm_id):
+    market = FarmersMarket.query.get(fm_id)
+
+    return market
 
 # how to store the data? in database format, view with json format?
