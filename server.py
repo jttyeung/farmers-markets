@@ -3,6 +3,8 @@ from flask_restful import reqparse, abort, Resource, Api
 from flask_debugtoolbar import DebugToolbarExtension
 import jinja2
 
+from model import *
+
 
 app = Flask(__name__)
 api = Api(app)
