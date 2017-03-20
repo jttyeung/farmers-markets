@@ -15,27 +15,28 @@ class FarmersMarket(db.Model):
 
     fm_id = db.Column(db.Integer, primary_key=True, nullable=False)
     name = db.Column(db.String(200), nullable=False)
-    website = db.Column(db.String(2083), nullable=True, unique=True)
-    facebook = db.Column(db.String(500), nullable=True, unique=True)
-    twitter = db.Column(db.String(500), nullable=True, unique=True)
-    youtube = db.Column(db.String(500), nullable=True, unique=True)
-    other_media = db.Column(db.String(500), nullable=True, unique=True)
+    website = db.Column(db.String(2083), nullable=True)
+    facebook = db.Column(db.String(500), nullable=True)
+    twitter = db.Column(db.String(500), nullable=True)
+    youtube = db.Column(db.String(500), nullable=True)
+    other_media = db.Column(db.String(500), nullable=True)
     street = db.Column(db.String(255), nullable=True)
     city = db.Column(db.String(100), nullable=True)
+    county = db.Column(db.String(100), nullable=True)
     state = db.Column(db.String(2), db.ForeignKey('states.state_id'), nullable=False)
-    zipcode = db.Column(db.Integer, nullable=True)
-    season_1_date =  db.Column(db.String(100), nullable=True)
-    season_1_time =  db.Column(db.String(100), nullable=True)
-    season_2_date =  db.Column(db.String(100), nullable=True)
-    season_2_time =  db.Column(db.String(100), nullable=True)
-    season_3_date =  db.Column(db.String(100), nullable=True)
-    season_3_time =  db.Column(db.String(100), nullable=True)
-    season_4_date =  db.Column(db.String(100), nullable=True)
-    season_4_time =  db.Column(db.String(100), nullable=True)
-    latitude = db.Column(db.Float, nullable=True)
+    zipcode = db.Column(db.String(15), nullable=True)
+    season_1_date =  db.Column(db.String(200), nullable=True)
+    season_1_time =  db.Column(db.String(200), nullable=True)
+    season_2_date =  db.Column(db.String(200), nullable=True)
+    season_2_time =  db.Column(db.String(200), nullable=True)
+    season_3_date =  db.Column(db.String(200), nullable=True)
+    season_3_time =  db.Column(db.String(200), nullable=True)
+    season_4_date =  db.Column(db.String(200), nullable=True)
+    season_4_time =  db.Column(db.String(200), nullable=True)
     longitude = db.Column(db.Float, nullable=True)
+    latitude = db.Column(db.Float, nullable=True)
     latlng = db.Column(Geometry(geometry_type='POINT'), nullable=True)
-    location = db.Column(db.Float, nullable=True)
+    location = db.Column(db.String(100), nullable=True)
     credit = db.Column(db.String(10), db.ForeignKey('hasitems.has_item_id'), nullable=False)
     wic = db.Column(db.String(10), db.ForeignKey('hasitems.has_item_id'), nullable=False)
     wic_cash = db.Column(db.String(10), db.ForeignKey('hasitems.has_item_id'), nullable=False)
@@ -71,7 +72,7 @@ class FarmersMarket(db.Model):
     pet_food = db.Column(db.String(10), db.ForeignKey('hasitems.has_item_id'), nullable=False)
     tofu = db.Column(db.String(10), db.ForeignKey('hasitems.has_item_id'), nullable=False)
     wild_harvested = db.Column(db.String(10), db.ForeignKey('hasitems.has_item_id'), nullable=False)
-    date_updated = db.Column(db.TIMESTAMP(timezone=True), nullable=False)
+    date_updated = db.Column(db.String(50), nullable=False)
 
     def __repr__(self):
         """ Shows information about the farmer's market. """
@@ -84,6 +85,7 @@ class HasItem(db.Model):
     __tablename__ = 'hasitems'
 
     has_item_id = db.Column(db.String(10), primary_key=True, nullable=False)
+    has_item = db.Column(db.String(10), nullable=False)
 
     def __repr__(self):
         """ Shows information about the item. """
