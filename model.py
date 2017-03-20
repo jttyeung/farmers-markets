@@ -5,7 +5,7 @@ db = SQLAlchemy()
 
 
 
-# PostgreSQL Tables
+##### PostgreSQL Tables #####
 
 class FarmersMarket(db.Model):
     """ Farmer's markets information. """
@@ -106,7 +106,7 @@ class State(db.Model):
 
 
 
-# PostgreSQL connection and db setup
+##### PostgreSQL connection and db setup #####
 
 def connect_to_db(app, db_uri='postgresql:///farmers-markets'):
     """Connect the database to Flask app."""
