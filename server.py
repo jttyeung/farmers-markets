@@ -46,7 +46,7 @@ class Market(Resource):
 
 # Set up the API resource routing
 api.add_resource(MarketList, '/markets')
-api.add_resource(Markets, '/markets/<fm_id>')
+api.add_resource(Market, '/markets/<fm_id>')
 
 
 # @app.route('/api/markets/<state>')
