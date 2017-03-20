@@ -23,23 +23,25 @@ def homepage():
 
 def error_if_nonexistent(fm_id):
     """ Returns an error message if farmer's market id is not found. """
-    markets = get_markets()
-    if fm_id not in markets:
+    fm_ids = get_market_ids()
+    if fm_id not in fm_ids:
         abort(404, message='Farmer\'s Market {} not found'.format(fm_id))
 
 
-class MarketList(Resource):
+class MarketListAPI(Resource):
     """ Resource for full list of farmer's markets. """
     def get(self):
 
-        return {'hello': 'world'}
+        return get_markets()
+        # return ''
 
 
-class Market(Resource):
+class MarketAPI(Resource):
     """ Resource for individual farmer's markets. """
     def get(self, fm_id):
         error_if_nonexistent(fm_id)
         # return markets[fm_id]
+        pass
 
     def delete(self, fm_id):
         error_if_nonexistent(fm_id)
@@ -47,16 +49,15 @@ class Market(Resource):
 
     def put(self, fm_id):
         error_if_nonexistent(fm_id)
-        # return
+        pass
 
 
 
 # Set up the API resource routing
-api.add_resource(MarketList, '/markets')
-api.add_resource(Market, '/markets/<fm_id>')
+api.add_resource(MarketListAPI, '/markets')
+api.add_resource(MarketAPI, '/markets/<fm_id>')
+# api.add_resource(Market, '/markets/<state_id>')
 
-
-# @app.route('/api/markets/<state>')
 
 
 if __name__ == '__main__':

@@ -7,6 +7,35 @@ db = SQLAlchemy()
 
 ##### PostgreSQL Tables #####
 
+
+class HasItem(db.Model):
+    """ Yes, No, or No Data """
+
+    __tablename__ = 'hasitems'
+
+    has_item_id = db.Column(db.String(10), primary_key=True, nullable=False)
+    has_item = db.Column(db.String(10), nullable=False)
+
+    def __repr__(self):
+        """ Shows information about the item. """
+        return '<HasItem id=%s>' % (self.has_item_id)
+
+
+class State(db.Model):
+    """ State abbreviations and data. """
+
+    __tablename__ = 'states'
+
+    state_id = db.Column(db.String(2), primary_key=True, nullable=False)
+    name = db.Column(db.String(100), nullable=False)
+
+
+    def __repr__(self):
+        """ Shows information about the user. """
+
+        return '<State id=%s name=%s>' % (self.state_id, self.name)
+
+
 class FarmersMarket(db.Model):
     """ Farmer's markets information. """
 
@@ -77,34 +106,6 @@ class FarmersMarket(db.Model):
     def __repr__(self):
         """ Shows information about the farmer's market. """
         return '<FarmersMarket id=%s name=%s>' % (self.fm_id, self.name)
-
-
-class HasItem(db.Model):
-    """ Yes, No, or No Data """
-
-    __tablename__ = 'hasitems'
-
-    has_item_id = db.Column(db.String(10), primary_key=True, nullable=False)
-    has_item = db.Column(db.String(10), nullable=False)
-
-    def __repr__(self):
-        """ Shows information about the item. """
-        return '<HasItem id=%s>' % (self.has_item_id)
-
-
-class State(db.Model):
-    """ State abbreviations and data. """
-
-    __tablename__ = 'states'
-
-    state_id = db.Column(db.String(2), primary_key=True, nullable=False)
-    name = db.Column(db.String(100), nullable=False)
-
-
-    def __repr__(self):
-        """ Shows information about the user. """
-
-        return '<State id=%s name=%s>' % (self.state_id, self.name)
 
 
 
