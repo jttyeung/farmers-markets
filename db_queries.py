@@ -18,29 +18,19 @@ def get_markets():
 
     markets = { 'markets': [] }
 
-    # QUERY = """
-    #     SELECT row_to_json(farmersmarkets)
-    #     FROM farmersmarkets
-    #     """
+    # Converts each row to a dictionary
+    QUERY = """
+        SELECT row_to_json(farmersmarkets)
+        FROM farmersmarkets
+        """
 
-    # db_cursor = db.session.execute(QUERY)
-    # rows = db_cursor.fetchall()
+    db_cursor = db.session.execute(QUERY)
+    # Fetchall outputs each dictionary into a tuple
+    rows = db_cursor.fetchall()
 
-    # for row in rows:
-    #     print row
-    #     markets['markets'].append(row)
-
-    db_markets = db.session.query(FarmersMarket).all()
-    hell0 = db_markets[0].__dict__
-    del hell0['_sa_instance_state']
-    print hell0
-
-
-    for market in db_markets:
-        markets['markets'].append(market.__dict__)
-        del market['_sa_instance_state']
-
-    # markets['markets'].append(db_markets[0].__dict__)
+    for row in rows:
+        # Append the first (dictionary) item of each tuple in the list of markets
+        markets['markets'].append(row[0])
 
     return markets
 
