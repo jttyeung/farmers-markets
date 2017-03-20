@@ -40,7 +40,7 @@ class MarketAPI(Resource):
     """ Resource for individual farmer's markets. """
 
     def get(self, fm_id):
-        error_if_nonexistent(fm_id)
+        # error_if_nonexistent(fm_id)
         return get_market_by_id(fm_id)
 
 

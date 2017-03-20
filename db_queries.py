@@ -26,7 +26,7 @@ def get_markets():
 
     # Executes query
     db_cursor = db.session.execute(QUERY)
-    # Fetchall outputs each dictionary into a tuple
+    # Fetchall outputs each dictionary in a tuple
     rows = db_cursor.fetchall()
 
     for row in rows:
@@ -37,8 +37,20 @@ def get_markets():
 
 
 def get_market_by_id(fm_id):
-    market = FarmersMarket.query.get(fm_id)
 
-    return market
+    markets = { 'markets': [] }
 
-# how to store the data? in database format, view with json format?
+    QUERY = """
+        SELECT row_to_json(farmersmarkets)
+        FROM farmersmarkets
+        WHERE fm_id = :fm_id
+        """
+
+    # Executes query
+    db_cursor = db.session.execute(QUERY, {'fm_id': fm_id})
+    # Fetchone outputs a dictionary in a tuple
+    market = db_cursor.fetchone()
+    # Append market to markets dictionary
+    markets['markets'].append(market[0])
+
+    return markets
