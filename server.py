@@ -4,6 +4,7 @@ from flask_debugtoolbar import DebugToolbarExtension
 import jinja2
 
 from model import *
+from db_queries import *
 
 
 app = Flask(__name__)
@@ -21,17 +22,21 @@ def homepage():
 
 
 def error_if_nonexistent(fm_id):
-    # markets =
+    """ Returns an error message if farmer's market id is not found. """
+    markets = get_markets()
     if fm_id not in markets:
         abort(404, message='Farmer\'s Market {} not found'.format(fm_id))
 
 
 class MarketList(Resource):
+    """ Resource for full list of farmer's markets. """
     def get(self):
+
         return {'hello': 'world'}
 
 
 class Market(Resource):
+    """ Resource for individual farmer's markets. """
     def get(self, fm_id):
         error_if_nonexistent(fm_id)
         # return markets[fm_id]
