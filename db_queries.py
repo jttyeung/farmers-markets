@@ -56,3 +56,24 @@ def get_market_by_id(fm_id):
 
     return markets
 
+
+def get_market_by_state(state):
+    """ Gets farmer's market by state. """
+
+    markets = { 'markets': [] }
+
+    QUERY = """
+        SELECT row_to_json(farmersmarkets)
+        FROM farmersmarkets
+        WHERE fm_id = :fm_id
+        """
+
+    # Executes query
+    db_cursor = db.session.execute(QUERY, {'fm_id': fm_id})
+    # Fetchone outputs a dictionary in a tuple
+    market = db_cursor.fetchone()
+    # Append market to markets dictionary
+    markets['markets'].append(market[0])
+
+    return markets
+

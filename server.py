@@ -56,11 +56,28 @@ class MarketAPI(Resource):
         pass
 
 
+class MarketStateAPI(Resource):
+    """ Resource for individual farmer's markets. """
+
+    def get(self, state_id):
+        error_if_nonexistent(state_id)
+        return get_market_by_state(state_id)
+
+
+    def delete(self, state_id):
+        error_if_nonexistent(state_id)
+        return '', 204
+
+    def put(self, state_id):
+        error_if_nonexistent(state_id)
+        pass
+
+
 
 # Set up the API resource routing
 api.add_resource(MarketListAPI, '/markets')
 api.add_resource(MarketAPI, '/markets/<fm_id>')
-# api.add_resource(Market, '/markets/<state_id>')
+api.add_resource(MarketStateAPI, '/markets/<state_id>')
 
 
 
