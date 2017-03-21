@@ -4,12 +4,12 @@ from model import *
 
 def get_market_ids():
     """ Gets full list of farmer's market ids. """
-    fm_ids = set([])
+    fm_ids = set()
 
     market_ids = db.session.query(FarmersMarket.fm_id).all()
     for ids in market_ids:
         fm_ids.add(ids[0])
-    print fm_ids
+
     return fm_ids
 
 
@@ -37,6 +37,7 @@ def get_markets():
 
 
 def get_market_by_id(fm_id):
+    """ Gets farmer's market by id. """
 
     markets = { 'markets': [] }
 
@@ -54,3 +55,4 @@ def get_market_by_id(fm_id):
     markets['markets'].append(market[0])
 
     return markets
+
