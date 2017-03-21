@@ -9,6 +9,7 @@ Table of Contents
 ------
 * [Technologies Used](#technology)
 * [How Run Farmer's Markets Locally](#run)
+* [How To Use The App](#use)
 * [Author](#author)
 * [License](#license)
 
@@ -70,11 +71,10 @@ These instructions will get you a copy of the project up and running on your loc
   $ python model.py
   ```
 
-8. Change into the <kbd>/static/data/</kbd> directory and seed the database using the <kbd>dump.sql</kbd> file.
+8. Go into the <kbd>/static/data/</kbd> directory and seed the database using the <kbd>dump.sql</kbd> file.
   ```
   $ cd static/data
   $ psql farmers-markets < dump.sql
-
   ```
 
 9. Start the Flask server.
@@ -84,6 +84,12 @@ These instructions will get you a copy of the project up and running on your loc
 
 10. Go to localhost:5000 to view the application.
 
+
+## <a name="use"></a>Usage
+To use the app, simply visit one of the REST API endpoints to retrieve data:
+* /markets - This will give you data for all the markets in the U.S.
+* /markets/<fm_id> - Search data by farmer's market ID.
+* /markets/<state_id> - Search data by state ID. -- coming soon!
 
 
 ## <a name="author"></a>Author
