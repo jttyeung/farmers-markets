@@ -21,15 +21,24 @@ def homepage():
     return render_template('index.html')
 
 
-def error_if_nonexistent(fm_id):
+def error_if_nonexistent_fm_id(fm_id):
     """ Returns an error message if farmer's market id is not found. """
+
     fm_ids = get_market_ids()
-    print fm_ids
-    print '*'*50, fm_id
 
     # Convert URL query string to INT to compare to fm_ids
     if int(fm_id) not in fm_ids:
         abort(404, message='Farmer\'s market {} not found'.format(fm_id))
+
+
+def error_if_nonexistent_state_id(state_id):
+    """ Returns an error message if state id is not found. """
+
+    state_ids = get_state_ids()
+
+    # Capitalize state to match DB
+    if state_id.upper() not in state_ids:
+        abort(404, message='State abbreviation {} not valid.'.format(state_id))
 
 
 class MarketListAPI(Resource):
@@ -43,16 +52,16 @@ class MarketAPI(Resource):
     """ Resource for individual farmer's markets. """
 
     def get(self, fm_id):
-        error_if_nonexistent(fm_id)
+        error_if_nonexistent_fm_id(fm_id)
         return get_market_by_id(fm_id)
 
 
     def delete(self, fm_id):
-        error_if_nonexistent(fm_id)
+        error_if_nonexistent_fm_id(fm_id)
         return '', 204
 
     def put(self, fm_id):
-        error_if_nonexistent(fm_id)
+        error_if_nonexistent_fm_id(fm_id)
         pass
 
 
@@ -60,23 +69,23 @@ class MarketStateAPI(Resource):
     """ Resource for individual farmer's markets. """
 
     def get(self, state_id):
-        error_if_nonexistent(state_id)
+        error_if_nonexistent_state_id(state_id)
         return get_market_by_state(state_id)
 
 
     def delete(self, state_id):
-        error_if_nonexistent(state_id)
+        error_if_nonexistent_state_id(state_id)
         return '', 204
 
     def put(self, state_id):
-        error_if_nonexistent(state_id)
+        error_if_nonexistent_state_id(state_id)
         pass
 
 
 
 # Set up the API resource routing
 api.add_resource(MarketListAPI, '/markets')
-api.add_resource(MarketAPI, '/markets/<fm_id>')
+api.add_resource(MarketAPI, '/market/<fm_id>')
 api.add_resource(MarketStateAPI, '/markets/<state_id>')
 
 
