@@ -55,7 +55,6 @@ class MarketAPI(Resource):
         error_if_nonexistent_fm_id(fm_id)
         return get_market_by_id(fm_id)
 
-
     def delete(self, fm_id):
         error_if_nonexistent_fm_id(fm_id)
         return '', 204
@@ -71,16 +70,6 @@ class MarketStateAPI(Resource):
     def get(self, state_id):
         error_if_nonexistent_state_id(state_id)
         return get_market_by_state(state_id)
-
-
-    def delete(self, state_id):
-        error_if_nonexistent_state_id(state_id)
-        return '', 204
-
-    def put(self, state_id):
-        error_if_nonexistent_state_id(state_id)
-        pass
-
 
 
 # Set up the API resource routing
