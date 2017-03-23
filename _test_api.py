@@ -1,6 +1,9 @@
 import unittest
 
 from server import app
+from model import *
+
+
 
 
 class ApiEndpointTests(unittest.TestCase):
@@ -11,6 +14,9 @@ class ApiEndpointTests(unittest.TestCase):
 
         self.client = app.test_client()
         app.config['TESTING'] = True
+
+        connect_to_db(app, db_uri='postgresql:///farmersmarkets-testdb')
+        db.create_all()
 
 
     def test_homepage(self):
@@ -39,6 +45,13 @@ class ApiEndpointTests(unittest.TestCase):
 
         result = self.client.get('/market/ca')
         self.assertEqual(200, result.status_code)
+
+
+    def tearDown(self):
+        """Drop database after every test."""
+
+        db.session.close()
+        db.drop_all()
 
 
 
